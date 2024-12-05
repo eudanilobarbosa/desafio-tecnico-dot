@@ -26,6 +26,7 @@ jobs:
         run: ${{ github.event.inputs.cli }}
 
   cypress-e2e-chrome:
+    needs: cypress-e2e-electron
     runs-on: ubuntu-latest
     container: 
       image: cypress/browsers:node18.12.0-chrome103-ff107
@@ -40,6 +41,7 @@ jobs:
         run: ${{ github.event.inputs.cli }}
 
   cypress-e2e-firefox:
+    needs: cypress-e2e-electron
     runs-on: ubuntu-latest
     container: 
       image: cypress/browsers:node18.12.0-chrome103-ff107

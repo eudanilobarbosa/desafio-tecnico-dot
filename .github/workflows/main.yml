@@ -1,28 +1,51 @@
 name: Cypress Tests
 
 on:
-  workflow_dispatch: #Porque o DEV merece a magia de rodar testes sem precisar fazer aquele "pushzinho"
+  workflow_dispatch: #Porque o DEV merece a magia de rodar testes sem precisar fazer aquele "pushzinho" na branch main
     inputs: 
       cli:
         description: Run by Cypress CLI
         default: npx cypress run
-  push:
-    branches:
-      - main  #Dispara sempre que houver push na branch main
-
+  
 jobs:
-  cypress-tests:
+  cypress-e2e-electron:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        browser: [webkit]  #Executa nos 4 navegadores
-
+    container: 
+      image: cypress/browsers:node18.12.0-chrome103-ff107
     steps: 
       - name: Get code
         uses: actions/checkout@v4.2.2
 
       - name: Install dependencies
-        run: npm install
+        run: npm install 
 
-      - name: Run E2E Tests on ${{ matrix.browser }}
-        run: npx cypress run --browser ${{ matrix.browser }}  #Roda o Cypress no navegador correspondente
+      - name: Run E2E Tests
+        run: ${{ github.event.inputs.cli }}
+
+  cypress-e2e-chrome:
+    runs-on: ubuntu-latest
+    container: 
+      image: cypress/browsers:node18.12.0-chrome103-ff107
+    steps: 
+      - name: Get code
+        uses: actions/checkout@v4.2.2
+
+      - name: Install dependencies
+        run: npm install 
+
+      - name: Run E2E Tests
+        run: ${{ github.event.inputs.cli }}
+
+  cypress-e2e-firefox:
+    runs-on: ubuntu-latest
+    container: 
+      image: cypress/browsers:node18.12.0-chrome103-ff107
+    steps: 
+      - name: Get code
+        uses: actions/checkout@v4.2.2
+
+      - name: Install dependencies
+        run: npm install 
+
+      - name: Run E2E Tests
+        run: ${{ github.event.inputs.cli }}

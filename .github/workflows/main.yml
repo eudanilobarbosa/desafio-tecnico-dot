@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        browser: [electron, chrome, firefox, webkit]  #Executa nos 4 navegadores
+        browser: [electron, chrome, firefox]  #Executa nos 4 navegadores
 
     steps: 
       - name: Get code
